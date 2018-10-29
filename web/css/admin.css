@@ -93,3 +93,38 @@ div[id$='_hour'], div[id$='_minute'] {
 /*width: 90%;*/
 /*font-size: 14px;*/
 /*}*/
+
+.category-deck {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.category-deck div {
+    margin-bottom: 10px;
+}
+
+.category-card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 50px;
+    height: 100%;
+}
+
+.category-card .category-title {
+    text-align: center;
+}
+
+.category-card .category-text {
+    word-break: break-word;
+}
+
+.category-img-top {
+    width: 100%;
+    border-radius: 5px 5px 0 0;
+}
+
+.category-card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.4);
+}

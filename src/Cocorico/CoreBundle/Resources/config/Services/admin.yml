@@ -87,6 +87,7 @@ services:
             - Cocorico\CoreBundle\Entity\ListingCategory
             - ~
         calls:
+            - [ setTemplate, [list, CocoricoCoreBundle:CoreAdmin:grid_layout.html.twig]]
             - [ setTranslationDomain, [SonataAdminBundle]]
             - [ setLocales, ["%cocorico.locales%"]]
             - [ setBundlesEnabled, ["%kernel.bundles%"]]

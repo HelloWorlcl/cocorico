@@ -1,0 +1,28 @@
+{# AppBundle:Admin:inner_row_comment.html.twig #}
+
+{# Extend the default template, which provides batch and action cells #}
+{#     as well as the valid colspan computation #}
+{#{% extends '@SonataAdmin/CRUD/base_list_flat_inner_row.html.twig' %}#}
+{% extends 'SonataAdminBundle:CRUD:list.html.twig' %}
+
+{% block list_table %}
+
+    <div class="container-fluid">
+        <div class="category-deck">
+            {% for category in admin.datagrid.results %}
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                    <div class="category-card">
+                        <img class="category-img-top" src="{{ asset("uploads/listings/images/#{category.getImage()}") }}" />
+                        <div class="category-body">
+                           <h4 class="category-title">{{ category }}</h4>
+                           <p class="category-text">
+                                {{ category.getDescription()|truncate(50) }}
+                           </p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}
