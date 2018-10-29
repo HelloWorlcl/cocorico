@@ -30,6 +30,13 @@ abstract class BaseListingCategoryTranslation
      */
     protected $name;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="string", length=255, nullable=true)
+     */
+    protected $description;
+
     public function __construct()
     {
 
@@ -76,6 +83,29 @@ abstract class BaseListingCategoryTranslation
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return ListingCategoryTranslation
+     */
+    public function setDescription(string $description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 
 }

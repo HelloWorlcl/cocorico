@@ -66,6 +66,13 @@ class ListingCategory extends BaseListingCategory
      */
     private $fields;
 
+    /**
+     * @var ListingImage
+     *
+     * @ORM\ManyToOne(targetEntity="ListingImage", cascade={"persist", "remove"})
+     */
+    private $image;
+
 
     public function __construct()
     {
@@ -174,6 +181,32 @@ class ListingCategory extends BaseListingCategory
         return $this->fields;
     }
 
+    /**
+     * Set image
+     *
+     * @param ListingImage $image
+     * @return ListingCategory
+     */
+    public function setImage(ListingImage $image)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image name
+     *
+     * @return ListingImage|string
+     */
+    public function getImage()
+    {
+        if (!$this->image) {
+            return ListingImage::IMAGE_DEFAULT;
+        }
+
+        return $this->image;
+    }
 
     /**
      * Add category
@@ -222,6 +255,16 @@ class ListingCategory extends BaseListingCategory
     public function getName()
     {
         return $this->translate()->getName();
+    }
+
+    /**
+     * Get translated description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->translate()->getDescription();
     }
 
     /**

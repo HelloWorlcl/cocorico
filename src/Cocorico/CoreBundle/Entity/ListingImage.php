@@ -80,4 +80,12 @@ class ListingImage extends BaseListingImage
             $this->id = null;
         }
     }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getName();
+    }
 }
