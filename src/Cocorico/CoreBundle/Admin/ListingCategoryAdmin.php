@@ -12,11 +12,13 @@
 namespace Cocorico\CoreBundle\Admin;
 
 use Cocorico\CoreBundle\Entity\ListingCategory;
+use Cocorico\CoreBundle\Entity\ListingImage;
 use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class ListingCategoryAdmin extends Admin
 {
@@ -85,6 +87,14 @@ class ListingCategoryAdmin extends Admin
                 null,
                 array(
                     'label' => 'admin.listing_category.parent.label'
+                )
+            )
+            ->add(
+                'image',
+                EntityType::class,
+                array(
+                    'class' => ListingImage::class,
+                    'label' => 'admin.listing.images.label'
                 )
             );
 
