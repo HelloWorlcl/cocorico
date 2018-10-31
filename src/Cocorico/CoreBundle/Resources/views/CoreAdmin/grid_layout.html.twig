@@ -11,15 +11,17 @@
         <div class="category-deck">
             {% for category in admin.datagrid.results %}
                 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-                    <div class="category-card">
-                        <img class="category-img-top" src="{{ asset("uploads/listings/images/#{category.getImage()}") }}" />
-                        <div class="category-body">
-                           <h4 class="category-title">{{ category }}</h4>
-                           <p class="category-text">
-                                {{ category.getDescription()|truncate(50) }}
-                           </p>
+                    <a href="/admin/listing-category/{{ category.getId() }}/edit">
+                        <div class="category-card">
+                            <img class="category-img-top" src="{{ asset("#{category.getImageWebPath()}") }}" />
+                            <div class="category-body">
+                               <h4 class="category-title">{{ category }}</h4>
+                               <p class="category-text">
+                                   {{ category.getDescription()|truncate(50) }}
+                               </p>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
             {% endfor %}
         </div>
