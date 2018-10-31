@@ -67,9 +67,9 @@ class ListingCategory extends BaseListingCategory
     private $fields;
 
     /**
-     * @var ListingImage
+     * @var ListingCategoryImage
      *
-     * @ORM\ManyToOne(targetEntity="ListingImage", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="ListingCategoryImage", cascade={"persist", "remove"})
      */
     private $image;
 
@@ -184,10 +184,11 @@ class ListingCategory extends BaseListingCategory
     /**
      * Set image
      *
-     * @param ListingImage $image
+     * @param ListingCategoryImage $image
+     *
      * @return ListingCategory
      */
-    public function setImage(ListingImage $image)
+    public function setImage($image): ListingCategory
     {
         $this->image = $image;
 
@@ -195,17 +196,39 @@ class ListingCategory extends BaseListingCategory
     }
 
     /**
-     * Get image name
+     * Get image
+     * I wanted to specify the return nullable type because php7.1 is able to do that,
+     * but Symfony is too old and it breaks console commands
      *
-     * @return ListingImage|string
+     * @return null|ListingCategoryImage
      */
     public function getImage()
     {
-        if (!$this->image) {
-            return ListingImage::IMAGE_DEFAULT;
+        return $this->image;
+    }
+
+    /**
+     * Get image/default name
+     *
+     * @return string
+     */
+    public function getImageOrDefault()
+    {
+        if (!$this->getImage()) {
+            return ListingCategoryImage::IMAGE_DEFAULT_NAME;
         }
 
-        return $this->image;
+        return $this->getImage()->getName();
+    }
+
+    /**
+     * Get image web path
+     *
+     * @return string
+     */
+    public function getImageWebPath()
+    {
+        return ListingCategoryImage::IMAGE_FOLDER . $this->getImageOrDefault();
     }
 
     /**

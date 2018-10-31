@@ -92,6 +92,17 @@ services:
             - [ setLocales, ["%cocorico.locales%"]]
             - [ setBundlesEnabled, ["%kernel.bundles%"]]
 
+    sonata.admin.listing_category_image:
+        class: Cocorico\CoreBundle\Admin\ListingCategoryImageAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, show_in_dashboard: false }
+        arguments:
+            - ~
+            - Cocorico\CoreBundle\Entity\ListingCategoryImage
+            -
+        calls:
+            - [ setTranslationDomain, [SonataAdminBundle]]
+
     sonata.admin.booking_bank_wire:
         class: Cocorico\CoreBundle\Admin\BookingBankWireAdmin
         tags:

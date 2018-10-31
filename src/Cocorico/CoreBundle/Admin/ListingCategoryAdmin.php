@@ -12,13 +12,13 @@
 namespace Cocorico\CoreBundle\Admin;
 
 use Cocorico\CoreBundle\Entity\ListingCategory;
-use Cocorico\CoreBundle\Entity\ListingImage;
+use Cocorico\CoreBundle\Entity\ListingCategoryImage;
+use Cocorico\CoreBundle\Helper\FileUploadHelper;
 use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class ListingCategoryAdmin extends Admin
 {
@@ -91,10 +91,13 @@ class ListingCategoryAdmin extends Admin
             )
             ->add(
                 'image',
-                EntityType::class,
+                'sonata_type_admin',
                 array(
-                    'class' => ListingImage::class,
-                    'label' => 'admin.listing.images.label'
+                    'label' => 'admin.listing.images.label',
+                    'required' => false,
+                ),
+                array(
+                    'edit' => 'inline',
                 )
             );
 
@@ -203,5 +206,42 @@ class ListingCategoryAdmin extends Admin
     {
         //$collection->remove('create');
         //$collection->remove('delete');
+    }
+
+    /**
+     * @param ListingCategory $category
+     */
+    public function prePersist($category)
+    {
+        $this->manageFileUpload($category);
+    }
+
+    /**
+     * @param ListingCategory $category
+     */
+    public function preUpdate($category)
+    {
+        $this->manageFileUpload($category);
+    }
+
+    /**
+     * @param ListingCategory $category
+     */
+    public function manageFileUpload(ListingCategory $category)
+    {
+        $image = $category->getImage();
+        if (!$image) {
+            return;
+        }
+
+        $file = $image->getFile();
+        if (!$file) {
+            return;
+        }
+
+        $image->setName($file->getClientOriginalName());
+
+        $fileUploadHelper = new FileUploadHelper($file,ListingCategoryImage::IMAGE_FOLDER, $image->getName());
+        $fileUploadHelper->upload();
     }
 }
